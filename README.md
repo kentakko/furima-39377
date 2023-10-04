@@ -2,71 +2,46 @@
 
 ## users テーブル
 
-| Column             | Type   | Options          |
-| ------------------ | ------ | ---------------- |
-| nickname           | string | NOT NULL         |
-| email              | string | NOT NULL         |
-| password           | string | NOT NULL         |
-| family_name        | string | NOT NULL         |
-| first_name         | string | NOT NULL         |
-| family_name_kana   | string | NOT NULL         |
-| first_name_kana    | string | NOT NULL         |
-| birth_day          | date   | NOT NULL         |
+| Column             | Type   | Options             |
+| ------------------ | ------ | ------------------- |
+| nickname           | string | null: false         |
+| email              | string | null: false, UNIQUE |
+| encrypted_password | string | null: false         |
+| family_name        | string | null: false         |
+| first_name         | string | null: false         |
+| family_name_kana   | string | null: false         |
+| first_name_kana    | string | null: false         |
+| birth_day          | date   | null: false         |
 
 ## items テーブル
 
-| Column             | Type       | Options                    |
-| ------------------ | ---------- | -------------------------- |
-| name               | string     | NOT NULL                   |
-| price              | string     | NOT NULL                   |
-| explanation        | string     | NOT NULL                   |
-| category_id        | integer    | NOT NULL,foreign_key: true |
-| status             | string     | NOT NULL                   |
-| shipping_price     | string     | NOT NULL                   |
-| shipping_area      | string     | NOT NULL                   |
-| shipping_date      | string     | NOT NULL                   |
-| user_id            | string     | NOT NULL                   |
+| Column             | Type    | Options                       |
+| ------------------ | ------- | ----------------------------- |
+| name               | string  | null: false                   |
+| price              | integer | null: false                   |
+| explanation        | text    | null: false                   |
+| category_id        | integer | null: false                   |
+| status_id          | integer | null: false                   |
+| shipping_price_id  | integer | null: false                   |
+| prefecture_id      | integer | null: false                   |
+| shipping_date_id   | integer | null: false                   |
+| user_id            | integer | null: false                   |
 
-## card テーブル
+## cards テーブル
 
-| Column             | Type       | Options                    |
-| ------------------ | ---------- | -------------------------- |
-| user_id            | integer    | NOT NULL,foreign_key: true |
-| card_id            | integer    | NOT NULL,foreign_key: true |
-
+| Column             | Type       | Options                       |
+| ------------------ | ---------- | ----------------------------- |
+| card               | integer    | null: false                   |
+| user_id            | references | null: false,foreign_key: true |
 
 ## purchases テーブル
 
-| Column             | Type       | Options                    |
-| ------------------ | ---------- | -------------------------- |
-| family_name        | string     | NOT NULL                   |
-| first_name         | string     | NOT NULL                   |
-| family_name_kana   | string     | NOT NULL                   |
-| first_name_kana    | string     | NOT NULL                   |
-| post_code          | string     | NOT NULL                   |
-| prefecture         | string     | NOT NULL                   |
-| city               | string     | NOT NULL                   |
-| address            | string     | NOT NULL                   |
-| building_name      | string     | NOT NULL                   |
-| phone_number       | string     | NOT NULL                   |
-| user_id            | integer    | NOT NULL,foreign_key: true |
-
-## images テーブル
-
-| Column             | Type       | Options                    |
-| ------------------ | ---------- | -------------------------- |
-| image              | string     | NOT NULL                   |
-| item_id            | integer    | NOT NULL,foreign_key: true |
-
-## category テーブル
-
-| Column             | Type       | Options                    |
-| ------------------ | ---------- | -------------------------- |
-| name               | string     | NOT NULL                   |
-| ancestry           | string     |                            |
-
-
-## brand テーブル
-| Column             | Type       | Options                    |
-| ------------------ | ---------- | -------------------------- |
-| name               | string     | NOT NULL                   |
+| Column             | Type    | Options                       |
+| ------------------ | ------- | ----------------------------- |
+| post_code          | string  | null: false                   |
+| prefecture_id      | integer | null: false                   |
+| city               | string  | null: false                   |
+| address            | string  | null: false                   |
+| building_name      | string  | null: false                   |
+| phone_number       | string  | null: false                   |
+| user_id            | integer | null: false,foreign_key: true |
