@@ -14,7 +14,7 @@
 
 ### Association
 has_many :items 
-has_many :purchase_item
+has_many :purchase_items
 
 
 ## items テーブル
@@ -32,35 +32,31 @@ has_many :purchase_item
 
 ### Association
 belongs_to :user
-has_one :purchase_item
+has_one :purchase_items
 
 
-## purchases_item テーブル
+## purchases_items テーブル
 | Column             | Type       | Options                       |
 | ------------------ | -----------| ----------------------------- |
 | item               | references | null: false,foreign_key: true |
 | user               | references | null: false,foreign_key: true |
-| purchase_info      | references | null: false,foreign_key: true |
 
 ### Association
 belongs_to :user
-belongs_to :items
-belongs_to :purchase_info
+belongs_to :item
+has_one :payments
 
 
-## purchases_info テーブル
-| Column             | Type      | Options                       |
-| ------------------ | --------- | ----------------------------- |
-| card_date          | string    | null: false                   |
-| card_deadline      | string    | null: false                   |
-| security_code      | string    | null: false                   |
-| post_code          | string    | null: false                   |
-| prefecture_id      | integer   | null: false                   |
-| city               | string    | null: false                   |
-| address            | string    | null: false                   |
-| building_name      | string    |                               |
-| phone_number       | string    | null: false                   |
-| user               | reference | null: false,foreign_key: true |
+## payments テーブル
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| post_code          | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| city               | string     | null: false                    |
+| address            | string     | null: false                    |
+| building_name      | string     |                                |
+| phone_number       | string     | null: false                    |
+| purchase_item      | references | null: false, foreign_key: true |
 
 ### Association
-has_one :purchase_item
+belongs_to :purchase_item
