@@ -13,8 +13,8 @@
 | birth_day          | date   | null: false               |
 
 ### Association
-has_many :items dependent: :destroy
-belongs_to :purchases dependent: :destroy
+has_many :items 
+has_many :purchase_item
 
 
 ## items テーブル
@@ -28,22 +28,39 @@ belongs_to :purchases dependent: :destroy
 | shipping_price_id  | integer    | null: false                   |
 | prefecture_id      | integer    | null: false                   |
 | shipping_date_id   | integer    | null: false                   |
-| user_id            | references | null: false,foreign_key: true |
+| user               | references | null: false,foreign_key: true |
 
 ### Association
-belongs_to :user dependent: :destroy
+belongs_to :user
+has_one :purchase_item
 
 
-## purchases テーブル
-| Column             | Type    | Options                       |
-| ------------------ | ------- | ----------------------------- |
-| post_code          | string  | null: false                   |
-| prefecture_id      | integer | null: false                   |
-| city               | string  | null: false                   |
-| address            | string  | null: false                   |
-| building_name      | string  | null: false                   |
-| phone_number       | string  | null: false                   |
-| user_id            | integer | null: false,foreign_key: true |
+## purchases_item テーブル
+| Column             | Type       | Options                       |
+| ------------------ | -----------| ----------------------------- |
+| item               | references | null: false,foreign_key: true |
+| user               | references | null: false,foreign_key: true |
+| purchase_info      | references | null: false,foreign_key: true |
 
 ### Association
-belongs_to :users
+belongs_to :user
+belongs_to :items
+belongs_to :purchase_info
+
+
+## purchases_info テーブル
+| Column             | Type      | Options                       |
+| ------------------ | --------- | ----------------------------- |
+| card_date          | string    | null: false                   |
+| card_deadline      | string    | null: false                   |
+| security_code      | string    | null: false                   |
+| post_code          | string    | null: false                   |
+| prefecture_id      | integer   | null: false                   |
+| city               | string    | null: false                   |
+| address            | string    | null: false                   |
+| building_name      | string    |                               |
+| phone_number       | string    | null: false                   |
+| user               | reference | null: false,foreign_key: true |
+
+### Association
+has_one :purchase_item
