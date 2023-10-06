@@ -32,7 +32,7 @@ has_many :purchase_items
 
 ### Association
 belongs_to :user
-has_one :purchase_items
+has_one :purchase_item
 
 
 ## purchases_items テーブル
@@ -44,7 +44,7 @@ has_one :purchase_items
 ### Association
 belongs_to :user
 belongs_to :item
-has_one :payments
+has_one :payment
 
 
 ## payments テーブル
