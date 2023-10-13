@@ -10,5 +10,23 @@ class Item < ApplicationRecord
   belongs_to :Shipping_price
   belongs_to :Prefecture
   belongs_to :Shipping_date
+
+  #ジャンルの選択が「---」の時は保存できないようにする
+  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :status_id, numericality: { other_than: 1 , message: "can't be blank"} 
+  validates :shipping_price_id, numericality: { other_than: 1 , message: "can't be blank"} 
+  validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank" } 
+  validates :shipping_date_id, numericality: { other_than: 1 , message: "can't be blank" } 
   
+  #バリデーション
+  validates :name, presence: true
+  validates :explanation, presence: true
+  validates :category_id, presence: true
+  validates :explanation, presence: true
+  validates :status_id, presence: true
+  validates :shipping_price_id, presence: true
+  validates :prefecture_id, presence: true
+  validates :shipping_date_id, presence: true
+  validates :price, presence: true
+
 end
