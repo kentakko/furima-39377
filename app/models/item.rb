@@ -21,12 +21,7 @@ class Item < ApplicationRecord
   #バリデーション
   validates :name, presence: true
   validates :explanation, presence: true
-  validates :category_id, presence: true
-  validates :explanation, presence: true
-  validates :status_id, presence: true
-  validates :shipping_price_id, presence: true
-  validates :prefecture_id, presence: true
-  validates :shipping_date_id, presence: true
   validates :price, presence: true
+  validates :image, presence: true
 
 end
