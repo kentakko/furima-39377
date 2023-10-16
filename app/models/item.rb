@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
 
   belongs_to :user
-  has_one :purchase_item
+  #has_one :purchase_item
   has_one_attached :image # 1対１(単数枚画像投稿)で関連付けるという宣言
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -23,6 +23,6 @@ class Item < ApplicationRecord
   validates :explanation, presence: true
   validates :image, presence: true
 
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, only_integer: true }
 
 end
