@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
-    #@items = Item.all
+    @items = Item.all
   end
 
   def new
@@ -15,13 +15,15 @@ class ItemsController < ApplicationController
       redirect_to root_path
     else
       puts @item.errors.full_messages # この行を追加
-      flash[:error] = @item.errors.full_messages.join(", ")
+      flash[:error] = @item.errors.full_messages.join(', ')
       render :new
     end
   end
 
   private
+
   def item_params
-    params.require(:item).permit(:name, :price, :explanation, :category_id, :status_id, :shipping_price_id, :prefecture_id, :shipping_date_id, :image)
+    params.require(:item).permit(:name, :price, :explanation, :category_id, :status_id, :shipping_price_id, :prefecture_id,
+                                 :shipping_date_id, :image)
   end
 end
