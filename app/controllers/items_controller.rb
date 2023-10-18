@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
-    @items = Item.includes(:user).order("created_at DESC")
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
@@ -18,6 +18,13 @@ class ItemsController < ApplicationController
       flash[:error] = @item.errors.full_messages.join(', ')
       render :new
     end
+  end
+
+  def show
+    @item = Item.find(params[:id])
+  end
+
+  def order
   end
 
   private

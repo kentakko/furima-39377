@@ -7,8 +7,8 @@ class Item < ApplicationRecord
   belongs_to :category
   belongs_to :status
   belongs_to :shipping_price, class_name: 'ShippingPrice', foreign_key: 'shipping_price_id'
-  belongs_to :Prefecture
-  belongs_to :Shipping_date
+  belongs_to :prefecture
+  belongs_to :shipping_date
 
   # ジャンルの選択が「---」の時は保存できないようにする
   validates :category_id, numericality: { other_than: 1 }
