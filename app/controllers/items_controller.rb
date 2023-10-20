@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :check_item, only: [:edit, :destroy]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -27,8 +28,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return unless @item.user_id != current_user.id
-    redirect_to root_path
+    #return unless @item.user_id != current_user.id
+    #redirect_to root_path
+    # すでに before_action チェック済
   end
 
   def update
@@ -44,9 +46,12 @@ class ItemsController < ApplicationController
 
   def destroy
     # すでに before_action で @item がセットされている
-    @item.user == current_user
-    if @item.destroy
+    # すでに before_action チェック済
+    if current_user.id == @item.user_id
+      @item.destroy
       redirect_to root_path
+    else
+      render :show
     end
   end
 
@@ -59,6 +64,11 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def check_item
+    return unless @item.user_id != current_user.id
+    redirect_to root_path
   end
 
 end
