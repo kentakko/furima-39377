@@ -41,9 +41,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def order
-  end
-
   def destroy
     # すでに before_action で @item がセットされている
     # すでに before_action チェック済
