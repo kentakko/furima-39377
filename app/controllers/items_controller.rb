@@ -31,9 +31,8 @@ class ItemsController < ApplicationController
     #return unless @item.user_id != current_user.id
     #redirect_to root_path
     # すでに before_action チェック済
-    if current_user == @item.user
-      @item.purchase_item.present?
-      redirect_to root_path
+    if current_user != @item.user
+      redirect_to_root_path
     end
   end
 
