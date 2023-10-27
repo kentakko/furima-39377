@@ -33,6 +33,8 @@ class ItemsController < ApplicationController
     # すでに before_action チェック済
     if current_user != @item.user
       redirect_to_root_path
+    elsif current_user == @item.user
+      redirect_to root_path
     end
   end
 
