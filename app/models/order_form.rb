@@ -13,8 +13,6 @@ class OrderForm
     validates :token
   end
 
-  validates :building_name, presence: true, allow_blank: true
-
   def save(params,user_id)
   purchase_item = PurchaseItem.create(item_id: params[:item_id], user_id: user_id)
   Payment.create(post_code: post_code, prefecture_id: prefecture_id, city: city, address: address, building_name: building_name, phone_number: phone_number, purchase_item: purchase_item)

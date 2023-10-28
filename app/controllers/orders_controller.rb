@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
       
   private
     def order_params
-      params.require(:order_form).permit(:card_number, :expiration_month, :expiration_year, :cvc, :post_code, :prefecture_id, :city, :address, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+      params.require(:order_form).permit(:post_code, :prefecture_id, :city, :address, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
     end
 
     def set_item
