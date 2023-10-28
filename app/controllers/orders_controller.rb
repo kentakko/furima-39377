@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
 
   def index
     @orderform = OrderForm.new
-    @item = Item.find(params[:item_id])
     if current_user == @item.user
       redirect_to root_path
     else
@@ -18,8 +18,6 @@ class OrdersController < ApplicationController
     @orderform = OrderForm.new(order_params)
     if @orderform.valid?
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 直接PAY.JPテスト秘密鍵の指定から環境変数へ
-      
-      @item = Item.find(params[:item_id]) #商品IDを使用して商品情報を取得
       item_price = @item.price #商品の金額を取得
       
       Payjp::Charge.create(
@@ -30,7 +28,6 @@ class OrdersController < ApplicationController
         @orderform.save(params,current_user.id)
         redirect_to root_path
     else
-        @item = Item.find(params[:item_id])
         render :index
     end
   end
@@ -38,5 +35,9 @@ class OrdersController < ApplicationController
   private
     def order_params
       params.require(:order_form).permit(:card_number, :expiration_month, :expiration_year, :cvc, :post_code, :prefecture_id, :city, :address, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+    end
+
+    def set_item
+      @item = Item.find(params[:item_id])
     end
 end

@@ -1,7 +1,9 @@
 require 'rails_helper'
 RSpec.describe OrderForm, type: :model do  
   before do
-    @order_form = FactoryBot.build(:order_form)
+    item = FactoryBot.create(:item)
+    user = FactoryBot.create(:user)
+    @order_form = FactoryBot.build(:order_form , user_id: user.id, item_id: item.id)
   end
 
   describe 'ユーザー新規登録' do
@@ -68,6 +70,16 @@ RSpec.describe OrderForm, type: :model do
         @order_form.token = nil
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐付いていないと保存できないこと' do
+        @order_form.user_id = nil
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていないと保存できないこと' do
+        @order_form.item_id = nil
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
