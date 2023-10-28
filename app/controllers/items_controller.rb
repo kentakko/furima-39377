@@ -28,9 +28,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    #return unless @item.user_id != current_user.id
-    #redirect_to root_path
     # すでに before_action チェック済
+    if @item.purchase_item.present?
+      redirect_to root_path
+    end
   end
 
   def update
@@ -39,9 +40,6 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def order
   end
 
   def destroy
